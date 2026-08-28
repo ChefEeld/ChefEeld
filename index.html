@@ -10,7 +10,7 @@
         padding: 0;
         box-sizing: border-box;
       }
-      
+
       body {
         background: #ffffff;
         color: #333;
@@ -19,65 +19,127 @@
         transition: opacity 0.6s ease;
       }
 
-      /* Initial centered layout */
+      /* Initial centered layout (login screen) */
       body:not(.gallery-view) {
-      height: calc(var(--vh) * 100);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 20px;
+        height: calc(var(--vh) * 100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        padding: 20px;
+        background: #e8e8e8; /* soft grey-white classic Mac desktop */
       }
 
       /* Gallery view layout */
       body.gallery-view {
-        padding-top: 20px;
+        background: #ffffff;
       }
 
       h1 {
-        font-size: 3rem;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-        color: #222;
-        text-align: center;
-        transition: none;
-      }
-
-      /* Fixed header when in gallery view */
-      body.gallery-view h1 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #ffffff;
-        padding: 15px;
-        font-size: 2rem;
-        text-align: left;
-        z-index: 100;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      }
-
-      button {
-        margin-top: 0px;
-        padding: 10px 20px;
-        font-size: 1rem;
-        font-family: "Courier New", Courier, monospace;
-        background-color: #845927;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: all 0.6s ease;
-      }
-
-      button:hover {
-        background-color: #382611;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-      }
-
-      body.gallery-view button {
         display: none;
+      }
+
+      /* ===== Retro Mac OS Login Window ===== */
+      .login-window {
+        width: 360px;
+        max-width: 90vw;
+        background: #dcdcdc;
+        border: 1px solid #000;
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      .login-titlebar {
+        height: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: 0 6px;
+        background: repeating-linear-gradient(
+          to bottom,
+          #ffffff 0px,
+          #ffffff 2px,
+          #dcdcdc 2px,
+          #dcdcdc 4px
+        );
+        border-bottom: 1px solid #000;
+      }
+
+      .login-titlebar .close-box {
+        width: 12px;
+        height: 12px;
+        border: 1px solid #000;
+        background: #dcdcdc;
+        flex-shrink: 0;
+      }
+
+      .login-titlebar .title-label {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: #dcdcdc;
+        padding: 0 8px;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: #000;
+        white-space: nowrap;
+      }
+
+      .login-body {
+        padding: 20px 22px 22px;
+        background: #f4f4f4;
+      }
+
+      .login-body label {
+        display: block;
+        font-size: 0.8rem;
+        color: #000;
+        margin-bottom: 4px;
+        margin-top: 12px;
+      }
+
+      .login-body label:first-child {
+        margin-top: 0;
+      }
+
+      .login-body input[type="text"],
+      .login-body input[type="password"] {
+        width: 100%;
+        padding: 6px 8px;
+        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 0.85rem;
+        border: 1px solid #000;
+        border-radius: 3px;
+        background: #fff;
+        outline: none;
+      }
+
+      .login-buttons {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 22px;
+      }
+
+      .win-button {
+        padding: 6px 22px;
+        font-size: 0.85rem;
+        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        background: linear-gradient(#fdfdfd, #e2e2e2);
+        color: #000;
+        border: 1px solid #000;
+        border-radius: 14px;
+        cursor: pointer;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+        transition: background 0.1s;
+      }
+
+      .win-button:hover {
+        background: linear-gradient(#ffffff, #ececec);
+      }
+
+      .win-button:active {
+        background: linear-gradient(#dcdcdc, #cacaca);
       }
 
       .gallery {
@@ -89,6 +151,10 @@
 
       body.gallery-view .gallery {
         display: block;
+      }
+
+      body.gallery-view .login-window {
+        display: none;
       }
 
       .gallery-item {
@@ -121,16 +187,61 @@
         text-align: right;
       }
 
+      /* ===== Mac OS style fixed header (gallery view) ===== */
+      .site-titlebar {
+        display: none;
+      }
+
+      body.gallery-view .site-titlebar {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 26px;
+        align-items: center;
+        padding: 0 10px;
+        z-index: 100;
+        background: repeating-linear-gradient(
+          to bottom,
+          #ffffff 0px,
+          #ffffff 2px,
+          #dcdcdc 2px,
+          #dcdcdc 4px
+        );
+        border-bottom: 1px solid #000;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      .site-titlebar .close-box {
+        width: 13px;
+        height: 13px;
+        border: 1px solid #000;
+        background: #dcdcdc;
+        flex-shrink: 0;
+      }
+
+      .site-titlebar .title-label {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: #dcdcdc;
+        padding: 0 10px;
+        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 0.9rem;
+        font-weight: bold;
+        color: #000;
+        white-space: nowrap;
+      }
+
+      body.gallery-view {
+        padding-top: 46px;
+      }
+
       @media (max-width: 768px) {
-        h1 {
-          font-size: 2.5rem;
-        }
-        body.gallery-view h1 {
-          font-size: 1.2rem;
-          padding: px 15px;
-        }
         body.gallery-view {
-          padding-top: 60px;
+          padding-top: 40px;
         }
         .gallery {
           padding: 10px;
@@ -141,13 +252,38 @@
         .image-caption {
           font-size: 1rem;
         }
+        .site-titlebar {
+          height: 22px;
+        }
+        .site-titlebar .title-label {
+          font-size: 0.8rem;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>Chef Eel'd</h1>
-    <br />
-    <button onclick="showGallery()">I'll have a gander</button>
+    <div class="site-titlebar">
+      <span class="close-box"></span>
+      <span class="title-label">Chef Eel'd</span>
+    </div>
+
+    <div class="login-window">
+      <div class="login-titlebar">
+        <span class="close-box"></span>
+        <span class="title-label">Login</span>
+      </div>
+      <div class="login-body">
+        <label for="username">Username:</label>
+        <input type="text" id="username" value="Chefeeld" />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" value="GooseyGander" />
+
+        <div class="login-buttons">
+          <button class="win-button" onclick="showGallery()">Login</button>
+        </div>
+      </div>
+    </div>
     <div class="gallery">
       <div class="gallery-item first">
         <img
@@ -189,9 +325,9 @@
 
     <script>
       function setViewportHeight() {
-       // Calculate 1% of the viewport height
-      const vh = window.innerHeight * 0.01;
-       // Set a custom property on the root
+        // Calculate 1% of the viewport height
+        const vh = window.innerHeight * 0.01;
+        // Set a custom property on the root
         document.documentElement.style.setProperty('--vh', `${vh}px`);
       }
 
