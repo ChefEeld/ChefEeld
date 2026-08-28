@@ -115,6 +115,11 @@
         outline: none;
       }
 
+      .login-body input.password-visible {
+        font-style: italic;
+        font-size: 0.78rem;
+      }
+
       .login-buttons {
         display: flex;
         justify-content: flex-end;
@@ -122,24 +127,27 @@
       }
 
       .win-button {
-        padding: 6px 22px;
-        font-size: 0.85rem;
+        padding: 5px 16px;
+        font-size: 0.78rem;
+        font-weight: bold;
         font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        background: linear-gradient(#fdfdfd, #e2e2e2);
+        background: #d8d8d8;
         color: #000;
         border: 1px solid #000;
-        border-radius: 14px;
+        border-radius: 4px;
         cursor: pointer;
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
-        transition: background 0.1s;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7),
+                    inset 0 -2px 0 rgba(0, 0, 0, 0.15);
+        transition: background 0.1s, box-shadow 0.1s;
       }
 
       .win-button:hover {
-        background: linear-gradient(#ffffff, #ececec);
+        background: #e2e2e2;
       }
 
       .win-button:active {
-        background: linear-gradient(#dcdcdc, #cacaca);
+        background: #bcbcbc;
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.35);
       }
 
       .gallery {
@@ -158,50 +166,33 @@
       }
 
       .gallery-item {
-        margin-bottom: 50px;
+        margin-bottom: 40px;
         text-align: center;
       }
 
-      .gallery-item img {
+      /* ===== Retro Mac dialog box around each photo ===== */
+      .photo-window {
+        display: inline-block;
         width: 100%;
-        max-width: 100%;
-        height: auto;
-        border-radius: 4px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        max-width: 640px;
+        text-align: left;
+        background: #dcdcdc;
+        border: 1px solid #000;
+        box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.25);
+        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
         transition: transform 0.6s;
       }
 
-      .gallery-item img:hover {
+      .photo-window:hover {
         transform: translateY(-5px);
       }
 
-      .image-caption {
-        margin-top: 5px;
-        font-size: 1rem;
-        color: #666;
-        font-style: italic;
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.4;
-        text-align: right;
-      }
-
-      /* ===== Mac OS style fixed header (gallery view) ===== */
-      .site-titlebar {
-        display: none;
-      }
-
-      body.gallery-view .site-titlebar {
+      .photo-titlebar {
+        height: 20px;
+        position: relative;
         display: flex;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 26px;
         align-items: center;
-        padding: 0 10px;
-        z-index: 100;
+        padding: 0 6px;
         background: repeating-linear-gradient(
           to bottom,
           #ffffff 0px,
@@ -210,61 +201,149 @@
           #dcdcdc 4px
         );
         border-bottom: 1px solid #000;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
       }
 
-      .site-titlebar .close-box {
-        width: 13px;
-        height: 13px;
+      .photo-titlebar .close-box {
+        width: 12px;
+        height: 12px;
         border: 1px solid #000;
         background: #dcdcdc;
         flex-shrink: 0;
       }
 
-      .site-titlebar .title-label {
+      .photo-titlebar .photo-title {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
         background: #dcdcdc;
-        padding: 0 10px;
-        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
-        font-size: 0.9rem;
+        padding: 0 8px;
+        font-size: 0.8rem;
         font-weight: bold;
         color: #000;
         white-space: nowrap;
+        max-width: 70%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .photo-body {
+        background: #f4f4f4;
+        padding: 10px;
+      }
+
+      .photo-body img {
+        display: block;
+        width: 100%;
+        height: auto;
+        border: 1px solid #000;
+      }
+
+      .photo-caption {
+        margin-top: 8px;
+        font-size: 0.75rem;
+        font-style: italic;
+        color: #444;
+        text-align: right;
+        line-height: 1.4;
+      }
+
+      /* ===== Mac OS style system menu bar (gallery view) ===== */
+      .site-menubar {
+        display: none;
+      }
+
+      body.gallery-view .site-menubar {
+        display: flex;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 24px;
+        align-items: center;
+        padding: 0 12px;
+        gap: 20px;
+        z-index: 100;
+        background: #e4e4e4;
+        border-bottom: 1px solid #000;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+        font-family: "Geneva", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-size: 0.8rem;
+        color: #000;
+      }
+
+      .site-menubar .apple-icon {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+      }
+
+      .site-menubar .menu-item {
+        white-space: nowrap;
+        cursor: default;
+      }
+
+      .site-menubar .menu-item.brand {
+        font-weight: bold;
+      }
+
+      .site-menubar .menu-spacer {
+        flex: 1;
+      }
+
+      .site-menubar .menu-clock {
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
       }
 
       body.gallery-view {
-        padding-top: 46px;
+        padding-top: 44px;
       }
 
       @media (max-width: 768px) {
         body.gallery-view {
-          padding-top: 40px;
+          padding-top: 38px;
         }
         .gallery {
           padding: 10px;
         }
         .gallery-item {
-          margin-bottom: 40px;
+          margin-bottom: 30px;
         }
-        .image-caption {
-          font-size: 1rem;
+        .photo-caption {
+          font-size: 0.7rem;
         }
-        .site-titlebar {
-          height: 22px;
+        .photo-titlebar .photo-title {
+          font-size: 0.7rem;
         }
-        .site-titlebar .title-label {
-          font-size: 0.8rem;
+        .site-menubar {
+          height: 20px;
+          gap: 12px;
+          font-size: 0.65rem;
+          padding: 0 8px;
+        }
+        .site-menubar .apple-icon {
+          width: 12px;
+          height: 12px;
+        }
+        .site-menubar .menu-item:not(.brand):not(:first-of-type) {
+          display: none; /* hide extra decorative menu items on small screens */
         }
       }
     </style>
   </head>
   <body>
-    <div class="site-titlebar">
-      <span class="close-box"></span>
-      <span class="title-label">Chef Eel'd</span>
+    <div class="site-menubar">
+      <svg class="apple-icon" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="#000">
+        <path d="M22.6 17.2c0-3.6 2.9-5.3 3.1-5.5-1.7-2.4-4.3-2.8-5.2-2.8-2.2-.2-4.3 1.3-5.4 1.3-1.1 0-2.9-1.3-4.7-1.2-2.4 0-4.6 1.4-5.9 3.5-2.5 4.3-.6 10.7 1.8 14.2 1.2 1.7 2.6 3.7 4.4 3.6 1.8-.1 2.5-1.1 4.6-1.1 2.1 0 2.7 1.1 4.6 1.1 1.9 0 3.1-1.7 4.3-3.4 1.4-2 1.9-3.9 2-4-0.1 0-3.6-1.4-3.6-5.7zM19.3 6.8c1-1.2 1.6-2.8 1.4-4.5-1.4.1-3.1 1-4.1 2.1-.9 1-1.7 2.7-1.5 4.3 1.6.1 3.2-.8 4.2-1.9z"/>
+      </svg>
+      <span class="menu-item">File</span>
+      <span class="menu-item">Edit</span>
+      <span class="menu-item">View</span>
+      <span class="menu-item brand">Chef Eel'd</span>
+      <span class="menu-item">Help</span>
+      <span class="menu-spacer"></span>
+      <span class="menu-clock" id="menuClock">12:00:00 PM</span>
     </div>
 
     <div class="login-window">
@@ -277,7 +356,7 @@
         <input type="text" id="username" value="Chefeeld" />
 
         <label for="password">Password:</label>
-        <input type="password" id="password" value="GooseyGander" />
+        <input type="text" id="password" class="password-visible" value="GooseyGander" />
 
         <div class="login-buttons">
           <button class="win-button" onclick="showGallery()">Login</button>
@@ -286,44 +365,76 @@
     </div>
     <div class="gallery">
       <div class="gallery-item first">
-        <img
-          data-src="Images/San1.jpg"
-          alt="Plated meal"
-        />
-        <div class="image-caption">
-          Santorini, 2018. Fujicolor 200.
+        <div class="photo-window">
+          <div class="photo-titlebar">
+            <span class="close-box"></span>
+            <span class="photo-title">Untitled</span>
+          </div>
+          <div class="photo-body">
+            <img data-src="Images/San1.jpg" alt="Plated meal" />
+            <div class="photo-caption">Santorini, 2018. Fujicolor 200.</div>
+          </div>
         </div>
       </div>
       <div class="gallery-item">
-        <img
-          data-src="Images/San3.jpg"
-          alt="Fresh ingredients"
-        />
-        <div class="image-caption">
-          Santorini, 2018. Fujicolor 200.
+        <div class="photo-window">
+          <div class="photo-titlebar">
+            <span class="close-box"></span>
+            <span class="photo-title">Untitled</span>
+          </div>
+          <div class="photo-body">
+            <img data-src="Images/San3.jpg" alt="Fresh ingredients" />
+            <div class="photo-caption">Santorini, 2018. Fujicolor 200.</div>
+          </div>
         </div>
       </div>
       <div class="gallery-item">
-        <img
-          data-src="Images/San2.jpg"
-          alt="Food preparation"
-        />
-        <div class="image-caption">
-          Santorini, 2018. Fujicolor 200.
+        <div class="photo-window">
+          <div class="photo-titlebar">
+            <span class="close-box"></span>
+            <span class="photo-title">Untitled</span>
+          </div>
+          <div class="photo-body">
+            <img data-src="Images/San2.jpg" alt="Food preparation" />
+            <div class="photo-caption">Santorini, 2018. Fujicolor 200.</div>
+          </div>
         </div>
       </div>
       <div class="gallery-item">
-        <img
-          data-src="Images/San4.jpg"
-          alt="Delicious food"
-        />
-        <div class="image-caption">
-          Santorini, 2018. Fujicolor 200.
+        <div class="photo-window">
+          <div class="photo-titlebar">
+            <span class="close-box"></span>
+            <span class="photo-title">Untitled</span>
+          </div>
+          <div class="photo-body">
+            <img data-src="Images/San4.jpg" alt="Delicious food" />
+            <div class="photo-caption">Santorini, 2018. Fujicolor 200.</div>
+          </div>
         </div>
       </div>
     </div>
 
     <script>
+      // ===== Password phrase randomizer =====
+      // Add or remove phrases from this list — one will be picked at random
+      // each time the page loads and shown in the password field.
+      const passwordPhrases = [
+        "I'mFeelingNosey",
+        "I'llHaveAGooseyGander",
+        "ThisSeemsPretencious",
+        "CapatalismIstheUltimateSin",
+      ];
+
+      function setRandomPasswordPhrase() {
+        const passwordField = document.getElementById('password');
+        if (!passwordField) return;
+        const choice = passwordPhrases[Math.floor(Math.random() * passwordPhrases.length)];
+        passwordField.value = choice;
+      }
+
+      // Pick one phrase when the page loads
+      setRandomPasswordPhrase();
+
       function setViewportHeight() {
         // Calculate 1% of the viewport height
         const vh = window.innerHeight * 0.01;
@@ -335,6 +446,22 @@
       window.addEventListener('load', setViewportHeight);
       // Update on resize/orientation change
       window.addEventListener('resize', setViewportHeight);
+
+      function updateMenuClock() {
+        const clockEl = document.getElementById('menuClock');
+        if (!clockEl) return;
+        const now = new Date();
+        let hours = now.getHours();
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        if (hours === 0) hours = 12;
+        clockEl.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+      }
+
+      updateMenuClock();
+      setInterval(updateMenuClock, 1000);
 
       function showGallery() {
         // Fade out the entire page
